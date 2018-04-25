@@ -75,4 +75,11 @@ Example of how to create the function, createitem, which has two input arguments
 
 ## Start Application
 
-Copy ClientID, Client Secret, and Verification Token from application settings page. Replace them in Controllers/UserIntegrationController
+Copy ClientID, Client Secret, and Verification Token from application settings page. Replace them in Controllers/UserIntegrationController.
+Start local server. 
+
+## Using Ngrok 
+
+Ngrok provide public URLs for your apps on local machine. You can use this to test out your application before launching it to production.
+Make sure you replace all relevant URLs with temproary test URLs. Headover to [Ngrok](https://ngrok.com/) to find out more.
+
