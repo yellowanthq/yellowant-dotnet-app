@@ -73,13 +73,27 @@ Example of how to create the function, createitem, which has two input arguments
     - Input Example: A human readable example. e.g. Get non-skimmed milk from Krogers at 4th Cross St.
 ```
 
-## Start Application
+## Getting started with application
+This application helps you start with writing application code. When going to production, make sure you load all sensitive 
+tokens and values through environment variables or encoded secrets for better security.
 
-Copy ClientID, Client Secret, and Verification Token from application settings page. Replace them in Controllers/UserIntegrationController.
-Start local server. 
+1. Open solution in Visual Studio. Make sure you have installed YellowAntSDK from nuget package manager.
+2. Copy ClientID, ClientSecret, Veirifcation token from your Yellowant dashboard to relevant sections in Controllers/UserIntegrationController.cs
+3. Start development server by clicking on Debug(your-default-browser) button or by striking (Ctrl + F5)
+4. This will open a window in your browser with ```localhost:port```
+5. Note down the port number. you might need this to run ngrok and make your application available for testing on production
 
-## Using Ngrok 
+### Using Ngrok
+Ngrok provides public URLs for your apps on local machine. You can use this to test out your application before launching it in production. Headover to [Ngrok](https://ngrok.com/) and create account. Follow the instructions to set up ngrok on your machine.
+Start ngrok server by using 
 
-Ngrok provide public URLs for your apps on local machine. You can use this to test out your application before launching it to production.
-Make sure you replace all relevant URLs with temproary test URLs. Headover to [Ngrok](https://ngrok.com/) to find out more.
+```ngrok --host-header localhost:<port-your-servers-running-on>  http <port-your-servers-running-on>```
+
+```<port-your-servers-running-on>``` is the same port from above.
+
+After you start ngrok, note the link. 
+1. You need to update your app Redirect URL and API URL in Yellowant dashboard. 
+2. Update Redirect URI in Controller/UserIntegrationController ```oauthredirect``` function. Also Update Redirect(<ngrok url>)
+ 
+Now you should be ready to communicate with Yellowant.
 
