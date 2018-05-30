@@ -84,9 +84,18 @@ namespace YellowAntDemo.Controllers
         [HttpPost]
         public ActionResult Api()
         {
+            //In case you are "NOT using RTM" (Socket connection) if not comment this section
             var data = Request.Form["data"];
-
             dynamic command = JsonConvert.DeserializeObject(data);
+
+            //In case you are "using RTM" Sockets, 
+            /*System.IO.Stream req = Request.InputStream;
+            req.Seek(0, System.IO.SeekOrigin.Begin);
+            string data = new System.IO.StreamReader(req).ReadToEnd();
+            dynamic rtm_data = JsonConvert.DeserializeObject(data);
+            dynamic command = rtm_data["data"]; */
+            
+
             if (command["verification_token"] != "f9HWFrRCCzMY9MY9fl5AHFD9jIvGJuvPCkWTn5t6nIGZ0zLYiCO1NgwuhhBLCGJlU2vKGpqmysc6dRntFgnRFvCgP9QQ2cZl2pR9XlN9jSFNalkshesN4Zx4bL8jrRbE")
             {
                 JObject er = new JObject();

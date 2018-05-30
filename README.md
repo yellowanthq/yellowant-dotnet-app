@@ -97,3 +97,11 @@ After you start ngrok, note the link.
  
 Now you should be ready to communicate with Yellowant.
 
+### Using RTM Socket 
+In case your development server is behind a firewall, you can use yellowant socket server to communicate.
+1. Enable RTM for your application on YellowAnt developer dashboard. Don't forget to click 'Update Application'
+2. Download <yellowant rtm-client> and follow instructions to run socket client on your machine.  
+3. Go to Controllers/UserIntegrationController.cs, in "API" method, comment the lines under 'NOT using RTM' and uncomment
+the lines under "using RTM"
+4. Start your development server
+
