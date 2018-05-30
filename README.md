@@ -78,14 +78,17 @@ This application helps you start with writing application code. When going to pr
 tokens and values through environment variables or encoded secrets for better security.
 
 1. Open solution in Visual Studio. Make sure you have installed YellowAntSDK from nuget package manager.
-2. Copy ClientID, ClientSecret, Veirifcation token from your Yellowant dashboard to relevant sections in Controllers/UserIntegrationController.cs
+2. Copy ClientID, ClientSecret, Veirifcation token from your Yellowant dashboard to relevant sections in 
+Controllers/UserIntegrationController.cs 
 3. Start development server by clicking on Debug(your-default-browser) button or by striking (Ctrl + F5)
 4. This will open a window in your browser with ```localhost:port```
-5. Note down the port number. you might need this to run ngrok and make your application available for testing on production
+5. Note down the port number. you might need this to run ngrok and make your application available for testing on 
+production
 
 ### Using Ngrok
-Ngrok provides public URLs for your apps on local machine. You can use this to test out your application before launching it in production. Headover to [Ngrok](https://ngrok.com/) and create account. Follow the instructions to set up ngrok on your machine.
-Start ngrok server by using 
+Ngrok provides public URLs for your apps on local machine. You can use this to test out your application before launching 
+it in production. Head over to [Ngrok](https://ngrok.com/) and create an account. Follow the instructions to set up ngrok 
+on your machine. ngrok server by using 
 
 ```ngrok --host-header localhost:<port-your-servers-running-on>  http <port-your-servers-running-on>```
 
@@ -104,4 +107,30 @@ In case your development server is behind a firewall, you can use yellowant sock
 3. Go to Controllers/UserIntegrationController.cs, in "API" method, comment the lines under 'NOT using RTM' and uncomment
 the lines under "using RTM"
 4. Start your development server
+
+## Understanding Application Layout
+This is an example application, to let you know basics of building an integration for YellowAnt. Don`t use this code for production
+There are two main components to notice
+1. Controller (UserIntegrationController)
+2. CommandCenter
+  
+### Controller
+There are 4 controller functions Integrate, NewIntegration, Oauthredirect, and API. 
+
+#### API
+When you start a server go to ```<ngrok-server>/userintegration/integrate```. If you are not signed up, 
+this will redirect you to login. This is handled by Integrate controller.
+
+#### NewIntegration 
+Once on /userintegration/integrate, click on 'Link Button'. This will redirect you to /userintegration/newintegration. In this 
+controller, a user `state` is created and redirect link to yellowant is constructed using state and clientID. 
+
+#### Oauthredirect 
+If user approves request, YellowAnt will redirect you to 'redirect url' you have mentioned in application dashboard. This controller
+handles this redirected request. Request comes with `state` you created in 'NewIntegration' and 'token'. You use these 
+and complete OAuth cycle to get secret token form YellowAnt
+
+#### API 
+When user enters command in Slack/YellowAnt, that request is sent to 'API url' you mentioned in YellowAnt application dashboard.
+Those requests are handled by this controller 
 
