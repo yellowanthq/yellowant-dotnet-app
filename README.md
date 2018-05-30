@@ -109,7 +109,7 @@ the lines under "using RTM"
 4. Start your development server
 
 ## Understanding Application Layout
-This is an example application, to let you know basics of building an integration for YellowAnt. Don`t use this code for production
+This is an example application, to let you know basics of building an integration for YellowAnt. Don`t use this code for production.
 There are two main components to notice
 1. Controller (UserIntegrationController)
 2. CommandCenter
@@ -117,18 +117,18 @@ There are two main components to notice
 ### Controller
 There are 4 controller functions Integrate, NewIntegration, Oauthredirect, and API. 
 
-#### API
-When you start a server go to ```<ngrok-server>/userintegration/integrate```. If you are not signed up, 
-this will redirect you to login. This is handled by Integrate controller.
+#### Integrate
+When you start a server go to ```<ngrok-server>/userintegration/integrate```. If you are not logged in/signed up, 
+this will redirect you to login/signup page. This is handled by Integrate controller.
 
 #### NewIntegration 
-Once on /userintegration/integrate, click on 'Link Button'. This will redirect you to /userintegration/newintegration. In this 
+Once on ```/userintegration/integrate```, click on 'Link Button'. This will redirect you to /userintegration/newintegration. In this 
 controller, a user `state` is created and redirect link to yellowant is constructed using state and clientID. 
 
 #### Oauthredirect 
 If user approves request, YellowAnt will redirect you to 'redirect url' you have mentioned in application dashboard. This controller
-handles this redirected request. Request comes with `state` you created in 'NewIntegration' and 'token'. You use these 
-and complete OAuth cycle to get secret token form YellowAnt
+handles this redirected request. Request comes with `state` you created in 'NewIntegration' and a 'token'. You use these 
+and complete OAuth cycle to get secret token form YellowAnt.
 
 #### API 
 When user enters command in Slack/YellowAnt, that request is sent to 'API url' you mentioned in YellowAnt application dashboard.
