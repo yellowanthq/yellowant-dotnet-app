@@ -123,7 +123,7 @@ When you start a server go to ```<ngrok-server>/userintegration/integrate```. If
 this will redirect you to login/signup page. This is handled by Integrate controller.
 
 #### NewIntegration 
-Once on ```/userintegration/integrate```, click on 'Link Button'. This will redirect you to /userintegration/newintegration. In this 
+Once on ```/userintegration/integrate```, click on 'Add Account'. This will redirect you to /userintegration/newintegration. In this 
 controller, a user `state` is created and redirect link to yellowant is constructed using state and clientID. 
 
 #### Oauthredirect 
