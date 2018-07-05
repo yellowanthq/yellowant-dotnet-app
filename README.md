@@ -18,7 +18,7 @@ These instructions will get you started with building basic YellowAnt applicatio
     - Invoke Name: A simple single word which users can use to control this app.
     - Short Description: A human readable short description
 
-4. After the application is created you will be at the application overview page. You need update the application with more information and click on "Update Application".
+4. After the application is created you will be at the application overview page. You need to update the application with more information and click on "Update Application".
 ![YellowAnt Update App](https://github.com/yellowanthq/yellowant-sample-django-app/blob/master/docs/yellowant-app-overview-1.jpg "YellowAnt Update App")
 ![YellowAnt Update App](https://github.com/yellowanthq/yellowant-sample-django-app/blob/master/docs/yellowant-app-overview-2.jpg "YellowAnt Update App")
     - API URL: The endpoint through which YellowAnt will communicate with this app.
@@ -37,14 +37,14 @@ These instructions will get you started with building basic YellowAnt applicatio
         - title [varchar, required]: title of a todo item
         - description [varchar]: extra details of a todo item
     2. getlist(): get a list of todo items
-    3. getitem(id): get a single todo item
-        - id [int, required]: id of the todo item
-    4. updateitem(id, title, description): update a todo item
-        - id [int, required]: id of the todo item
-        - title [varchar]: new title of the todo item
+    3. getitem(title): get a single todo item
+        - title [varchar, required]: title of the todo item
+    4. updateitem(old-title, new-title, description): update a todo item
+        - old-title [varchar, required]: id of the todo item
+        - new-title [varchar]: new title of the todo item
         - description [varchar]: new description for the todo item
-    5. deleteitem(id: int): delete a todo item
-        - id [int, required]: id of the todo item
+    5. deleteitem(title: varchar): delete a todo item
+        - title [int, required]: id of the todo item
 
 ![YellowAnt Create New Function](https://github.com/yellowanthq/yellowant-sample-django-app/blob/master/docs/yellowant-create-new-function.jpg "YellowAnt Create New Function")
 ![YellowAnt Create New Input Arg](https://github.com/yellowanthq/yellowant-sample-django-app/blob/master/docs/yellowant-create-new-arg.jpg "YellowAnt Create New Input Arg")
@@ -77,8 +77,8 @@ Example of how to create the function, createitem, which has two input arguments
 This application helps you start with writing application code. When going to production, make sure you load all sensitive 
 tokens and values through environment variables or encoded secrets for better security.
 
-1. Open solution in Visual Studio. Make sure you have installed YellowAntSDK from nuget package manager.
-2. Copy ClientID, ClientSecret, Veirifcation token from your Yellowant dashboard to relevant sections in 
+1. Open solution in Visual Studio. Make sure you have installed YellowAntSDK from nuget package manager. Use Update-Package -Reinstall to install all references.
+2. Copy ClientID, ClientSecret, Verifcation token from your Yellowant dashboard to relevant sections in 
 Controllers/UserIntegrationController.cs 
 3. Start development server by clicking on Debug(your-default-browser) button or by striking (Ctrl + F5)
 4. This will open a window in your browser with ```localhost:port```
@@ -96,7 +96,8 @@ on your machine. ngrok server by using
 
 After you start ngrok, note the link. 
 1. You need to update your app Redirect URL and API URL in Yellowant dashboard. 
-2. Update Redirect URI in Controller/UserIntegrationController ```oauthredirect``` function. Also Update Redirect(<ngrok url>)
+2. Update Redirect URI in Controller/UserIntegrationController. 
+3. Make sure the ClientID and Secret are correct and so is the Verification Token
  
 Now you should be ready to communicate with Yellowant.
 
@@ -132,5 +133,13 @@ and complete OAuth cycle to get secret token form YellowAnt.
 
 #### API 
 When user enters command in Slack/YellowAnt, that request is sent to 'API url' you mentioned in YellowAnt application dashboard.
-Those requests are handled by this controller 
+Those requests are handled by this controller. The API url is the name of the API function, here 'API'.
 
+### ComandCenter
+The commandcenter has the commands file, buttons and a list of sample commands already made for this todo application. Each function is written as a seperate C# class for clarity. 
+
+#### Classes
+The HelloYellowAnt class, elps with understanding the possible outputs from yellowant. Each of the other classes, namely Createitem, getItem, updateitem, GetList,DeleteItem and specific functions that perform the required activity
+
+#### Commands class
+This is the root command class which controls the function calls that are made. Within the switch case, every command's invoke name is tested and the matching command's class is redirected to.
