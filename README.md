@@ -119,11 +119,11 @@ There are two main components to notice
 There are 4 controller functions Integrate, NewIntegration, Oauthredirect, and API. 
 
 #### Integrate
-When you start a server go to ```<ngrok-server>/userintegration/integrate```. If you are not logged in/signed up, 
+When you start a server go to ```<localhost:port>```. If you are not logged in/signed up, 
 this will redirect you to login/signup page. This is handled by Integrate controller.
 
 #### NewIntegration 
-Once on ```/userintegration/integrate```, click on 'Add Account'. This will redirect you to /userintegration/newintegration. In this 
+Once on ```localhost:port```, click on 'Add Account'. This will redirect you to /userintegration/newintegration. In this 
 controller, a user `state` is created and redirect link to yellowant is constructed using state and clientID. 
 
 #### Oauthredirect 
