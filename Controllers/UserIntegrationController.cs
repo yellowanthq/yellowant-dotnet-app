@@ -14,10 +14,14 @@ namespace YellowAntDemo.Controllers
 {
     public class UserIntegrationController : Controller
     {
+        string redirecturl = "https://0c948591.ngrok.io";
+        string clientID = "b3vHCSHVrphV0Bf9Kqsw3oGloMU9q2wJivaixTT8";
+        string clientSecret = "KA3fh2fyJBOi4zrLBgSLmAxuLj4x5GvgBgF5jcmzgalSbwcs6zsXu5bs7Qg7ir6lcVCd4a6diyv82ONAhdM1AOgbDcVNKWfVDaDE90CCBNGn4gUNYo3iMuDgC9ydrB2l";
+        string verificationToken = "yNIwbO1zAPMJrFhsKUVvPcgL2XEIzp5UXItcLFwxsxvbRKFsEstZ3putclmp2Zo9LLFN3KM5Xo1CnJqWF4SKgJkLQU0zE4m5tvicOhBVZhjwlPu03ndtGlWt0mtsgc92";
 
         private DefaultConnectionContext db = new DefaultConnectionContext();
         // GET: UserIntegration
-        
+
         [Authorize]
         public ActionResult Integrate()
         {
@@ -25,9 +29,9 @@ namespace YellowAntDemo.Controllers
         }
 
         [Authorize]
-        public RedirectResult NewIntegration()
+        public ActionResult NewIntegration()
         {
-            string ClientID = "FvbTB2WePePZH3Zz7IEEvzPpe84FSosINSG67bus";
+            string ClientID = clientID;
             YellowAntUserState yau = new YellowAntUserState();
             yau.UserState = Guid.NewGuid().ToString();
             yau.UserUniqueID = User.Identity.GetUserId();
@@ -36,7 +40,7 @@ namespace YellowAntDemo.Controllers
             db.SaveChanges();
 
             string url = "http://yellowant.yellowant.com/api/oauth2/authorize/?state=" + yau.UserState;
-            url = url + "&client_id=" + ClientID + "&response_type=code&redirect_url=" + "http://f0008a02.ngrok.io/userintegration/oauthredirect";
+            url = url + "&client_id=" + ClientID + "&response_type=code&redirect_url=" + redirecturl+"/userintegration/oauthredirect";
             return Redirect(url);
         }
 
@@ -47,14 +51,14 @@ namespace YellowAntDemo.Controllers
             var user = db.YellowAntUserStatesContext.Where(a => a.UserState == state).FirstOrDefault();
             if (user.UserUniqueID != User.Identity.GetUserId())
             {
-                return Redirect("http://f0008a02.ngrok.io/userintegration/integrate/");
+                return Redirect(redirecturl+"/userintegration/integrate/");
             }
 
             Yellowant ya = new Yellowant
             {
-                AppKey = "FvbTB2WePePZH3Zz7IEEvzPpe84FSosINSG67bus",
-                AppSecret = "6YMYY9oB9sU8imWBcYM3Z0MCjbnhCBCWbGHDICODyTLPmKXlqCeanEZrL9xNSuhZ9Eja54Mye5OfAPS2ZrJF1trT0Ag2byh31bMGXpFMQsvc2w5loBLuhmpK5q1d8HeT",
-                RedirectURI = "http://f0008a02.ngrok.io/userintegration/oauthredirect",
+                AppKey =clientID,
+                AppSecret = clientSecret,
+                RedirectURI = redirecturl+"/userintegration/oauthredirect",
                 AccessToken = ""
             };
             dynamic AccessToken = ya.GetAccessToken(code);
@@ -78,15 +82,16 @@ namespace YellowAntDemo.Controllers
 
             db.UserIntegrationContext.Add(integration);
             db.SaveChanges();
-            return Redirect("http://f0008a02.ngrok.io/userintegration/integrate/");
+            return Redirect(redirecturl+"/userintegration/integrate/");
         }
 
         [HttpPost]
         public ActionResult Api()
         {
-            //In case you are "NOT using RTM" (Socket connection) if not comment this section
+            //In case you are "NOT using RTM" (Socket connection) if not comment this sectionC:\yellowant\dotnetapp\Controllers\UserIntegrationController.cs
             var data = Request.Form["data"];
             dynamic command = JsonConvert.DeserializeObject(data);
+           
 
             //In case you are "using RTM" Sockets, 
             /*System.IO.Stream req = Request.InputStream;
@@ -94,9 +99,9 @@ namespace YellowAntDemo.Controllers
             string data = new System.IO.StreamReader(req).ReadToEnd();
             dynamic rtm_data = JsonConvert.DeserializeObject(data);
             dynamic command = rtm_data["data"]; */
-            
 
-            if (command["verification_token"] != "f9HWFrRCCzMY9MY9fl5AHFD9jIvGJuvPCkWTn5t6nIGZ0zLYiCO1NgwuhhBLCGJlU2vKGpqmysc6dRntFgnRFvCgP9QQ2cZl2pR9XlN9jSFNalkshesN4Zx4bL8jrRbE")
+
+            if (command["verification_token"] != verificationToken)
             {
                 JObject er = new JObject();
                 er.Add("Error", "Wrong Verification");
@@ -113,6 +118,7 @@ namespace YellowAntDemo.Controllers
             string result = cmd.Process();
 
             return this.Content(result, "application/json");
+            
         }
 
 

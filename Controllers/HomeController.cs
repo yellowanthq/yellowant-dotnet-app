@@ -10,11 +10,13 @@ namespace YellowAntDemo.Controllers
     {
         public ActionResult Index()
         {
+            Console.Write("Hello");
             return View();
         }
 
         public ActionResult About()
         {
+            Console.Write("sup?");
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -26,5 +28,6 @@ namespace YellowAntDemo.Controllers
 
             return View();
         }
+        
     }
 }

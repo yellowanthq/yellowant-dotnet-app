@@ -23,6 +23,43 @@ namespace YellowAntDemo.CommandCenter
                         cmd.IntegrationID = IntegrationID;
                         return cmd.Process();
                     }
+                case "get_list":
+                    {
+                        GetList cmd = new GetList(Args = Args, IntegrationID = IntegrationID);
+                        cmd.Args = Args;
+                        cmd.IntegrationID = IntegrationID;
+                        return cmd.Process();
+                    }
+                case "create_item":
+                    {
+                        CreateItem cmd = new CreateItem(Args = Args, IntegrationID = IntegrationID);
+                        cmd.Args = Args;
+                        cmd.IntegrationID = IntegrationID;
+                        return cmd.Process();
+                    }
+                case "getitem":
+                    {
+                        GetItem cmd = new GetItem(Args = Args, IntegrationID = IntegrationID);
+                        cmd.Args = Args;
+                        cmd.IntegrationID = IntegrationID;
+                        return cmd.Process();
+                    }
+                case "deleteitem":
+                    {
+                        DeleteItem cmd = new DeleteItem(Args = Args, IntegrationID = IntegrationID);
+                        cmd.Args = Args;
+                        cmd.IntegrationID = IntegrationID;
+                        return cmd.Process();
+
+                    }
+                case "updateitem":
+                    {
+                        UpdateItem cmd = new UpdateItem(Args = Args, IntegrationID = IntegrationID);
+                        cmd.Args = Args;
+                        cmd.IntegrationID = IntegrationID;
+                        return cmd.Process();
+                    }
+
                 default:
                     {
                         DefaultReply cmd = new DefaultReply();
