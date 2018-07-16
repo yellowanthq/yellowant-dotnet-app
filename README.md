@@ -1,6 +1,6 @@
 # yellowant-dotnet-app
 
-Sample dotnet application for creating a Hello application for YellowAnt. For API documentation, please visit https://apidocs.yellowant.com
+Sample dotnet application for creating a TODO List application for YellowAnt. For API documentation, please visit https://apidocs.yellowant.com
 
 ## Getting Started
 
